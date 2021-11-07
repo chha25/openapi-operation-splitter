@@ -1,6 +1,9 @@
+import SwaggerParser from "@apidevtools/swagger-parser";
+
 export class OpenApiOperationSplitter {
-    parse(fileName: string) {
-        throw new Error('Method not implemented.');
+    async parse(fileName: string) {
+        let api = await SwaggerParser.parse(fileName);
+        console.log("API name: %s, Version: %s", api.info.title, api.info.version);
     }
 
 }

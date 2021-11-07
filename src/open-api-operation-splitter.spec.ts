@@ -2,8 +2,8 @@ import { OpenApiOperationSplitter } from './open-api-operation-splitter';
 
 describe('OpenApiOperationSplitter', () => {
 
-    it('Should be true', () => {
+    it('Should be parseable', async () => {
         const openApiOperationSplitter: OpenApiOperationSplitter = new OpenApiOperationSplitter();
-        openApiOperationSplitter.parse('fileName');
+        const res = await openApiOperationSplitter.parse('fileName');
     });
 });
