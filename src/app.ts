@@ -1,15 +1,17 @@
-import {parse} from 'ts-command-line-args';
+import { parse } from 'ts-command-line-args';
+import { OpenApiOperationSplitter } from './open-api-operation-splitter';
 
-export const args = parse<ICopyFilesArguments>({
-    sourcePath: String,
-    targetPath: String,
-    copyFiles: { type: Boolean, alias: 'c' },
-    resetPermissions: Boolean,
-    filter: { type: String, optional: true },
-    excludePaths: { type: String, multiple: true, optional: true },
-    help: { type: Boolean, optional: true, alias: 'h', description: 'Prints this usage guide' },
-    
-});
+try {
+    const args = parse<Arguments>({
+        inputFile: String,
+        targetFileName: String,
+        operations: { type: String, multiple: true },
+        help: { type: Boolean, optional: true, alias: 'h', description: 'Prints this usage guide' },
+    });
+    console.log(args);
 
-const msg = 'Hello World';
-console.log(msg);
+} catch (error: any) {
+    console.log(error);
+}
+
+const openApiOperationSplitter: OpenApiOperationSplitter = new OpenApiOperationSplitter();
