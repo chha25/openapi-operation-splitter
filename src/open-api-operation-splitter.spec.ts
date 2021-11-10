@@ -4,6 +4,6 @@ describe('OpenApiOperationSplitter', () => {
 
     it('Should be parseable', async () => {
         const openApiOperationSplitter: OpenApiOperationSplitter = new OpenApiOperationSplitter();
-        const res = await openApiOperationSplitter.parse('fileName');
+        const res = await openApiOperationSplitter.parse('sample/swagger.yaml');
     });
 });
