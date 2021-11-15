@@ -1,6 +1,6 @@
 import { OpenApiOperationSplitter } from './open-api-operation-splitter';
 import { OpenAPI } from 'openapi-types';
-import exp from 'constants';
+import SwaggerParser from '@apidevtools/swagger-parser';
 
 describe('OpenApiOperationSplitter', () => {
     it('should be parsable', async () => {
@@ -23,7 +23,7 @@ describe('OpenApiOperationSplitter', () => {
             .toThrow('is not a valid Swagger API definition');
     });
 
-    it('shoud get operations (v3)', () => {
+    it('shoud get paths object by operation GET (v3)', () => {
         const openApiOperationSplitter: OpenApiOperationSplitter = new OpenApiOperationSplitter();
         const api: OpenAPI.Document = {
             "openapi": "3.0.0",
@@ -46,8 +46,22 @@ describe('OpenApiOperationSplitter', () => {
             }
         };
 
-        const actualOperations = openApiOperationSplitter.getPathItemsByOperation(api, "GET");
+        const actualPaths = openApiOperationSplitter.getPathsObjectByOperation(api, "GET");
 
-        expect(actualOperations.length).toBe(1);
+        expect(actualPaths).toBeTruthy();
+        const pathNames = Object.keys(actualPaths);
+        expect(pathNames.length).toBe(1);
+        expect(pathNames[0]).toBe('/users');
+    });
+
+    it('shoud get paths object by operation (v3) with other operations', async () => {
+        const openApiOperationSplitter: OpenApiOperationSplitter = new OpenApiOperationSplitter();
+        const api: OpenAPI.Document = await SwaggerParser.parse('input/swagger_v3.yaml');
+
+        const actualPaths = openApiOperationSplitter.getPathsObjectByOperation(api, "GET");
+
+        expect(actualPaths).toBeTruthy();
+        const pathNames = Object.keys(actualPaths);
+        expect(pathNames.length).toBe(8);
     });
 });
