@@ -1,5 +1,7 @@
 import SwaggerParser from '@apidevtools/swagger-parser';
 import { OpenAPI, OpenAPIV2, OpenAPIV3, OpenAPIV3_1 } from 'openapi-types';
+import YAML from 'yaml';
+import * as fs from 'fs';
 
 export class OpenApiOperationSplitter {
     async parse(fileName: string): Promise<OpenAPI.Document> {
@@ -36,6 +38,16 @@ export class OpenApiOperationSplitter {
             operations.push(operationByPathObject)
         }
         return copyPath;
+    }
+
+    async saveApiToYaml(api: OpenAPI.Document, fileName: string) {
+        const bundledApi = await SwaggerParser.bundle(api);
+        const jsonContent = JSON.stringify(bundledApi);
+
+        const yamlObject = YAML.parse(jsonContent)
+        const yamlStr = YAML.stringify(yamlObject);
+
+        fs.writeFile(fileName, yamlStr, () => { });
     }
 
     private getHttpMethod(api: OpenAPI.Document, operation: string): OpenAPIV2.HttpMethods | OpenAPIV3.HttpMethods {

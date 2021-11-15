@@ -21,6 +21,7 @@
   },
   "dependencies": {
     "@apidevtools/swagger-parser": "^10.0.3",
-    "ts-command-line-args": "^2.2.0"
+    "ts-command-line-args": "^2.2.0",
+    "yaml": "^1.10.2"
   }
 }
