@@ -14,8 +14,6 @@
   "devDependencies": {
     "@types/jest": "^27.0.2",
     "@types/node": "^16.11.6",
-    "gulp": "^4.0.0",
-    "gulp-typescript": "^6.0.0-alpha.1",
     "jest": "^27.3.1",
     "nodemon": "^2.0.14",
     "ts-jest": "^27.0.7",

@@ -1,4 +1,4 @@
-name: NodeJS with Gulp
+name: NodeJS
 
 on:
   push:
@@ -26,4 +26,3 @@ jobs:
       run: |
         npm install
         npm run test
-        gulp
