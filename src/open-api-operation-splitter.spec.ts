@@ -88,6 +88,6 @@ describe('OpenApiOperationSplitter', () => {
             }
         };
 
-        await openApiOperationSplitter.saveApiToYaml(api, './testAbc.yaml');
+        await openApiOperationSplitter.saveApiToYaml(api, './output/testAbc.yaml');
     });
 });
