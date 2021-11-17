@@ -51,6 +51,7 @@ export class OpenApiOperationSplitter {
     }
 
     private getHttpMethod(api: OpenAPI.Document, operation: string): OpenAPIV2.HttpMethods | OpenAPIV3.HttpMethods {
+        operation = operation.toLowerCase();
         const apiVersion = this.getOpenApiVersion(api);
         if (apiVersion === '2.0') {
             const typedKey = operation as keyof typeof OpenAPIV2.HttpMethods;
