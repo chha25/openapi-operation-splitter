@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 import { parse } from 'ts-command-line-args';
 import { OpenApiOperationSplitter } from './open-api-operation-splitter';
 
@@ -14,7 +15,7 @@ async function main() {
         const parsedApi = await openApiOperationSplitter.parse(args.inputFile);
         const paths = openApiOperationSplitter.getPathsObjectByOperation(parsedApi, args.operations[0]);
         parsedApi.paths = paths;
-        openApiOperationSplitter.saveApiToYaml(parsedApi, args.targetFileName);
+        await openApiOperationSplitter.saveApiToYaml(parsedApi, args.targetFileName);
 
     } catch (error: any) {
         console.log(error);

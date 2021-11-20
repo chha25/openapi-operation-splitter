@@ -11,6 +11,9 @@
   },
   "author": "Christoph Hammerbacher",
   "license": "MIT",
+  "bin": {
+    "openapi-operation-splitter": "build/app.js"
+  },
   "devDependencies": {
     "@types/jest": "^27.0.2",
     "@types/node": "^16.11.6",
