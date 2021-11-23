@@ -71,7 +71,7 @@ export class OpenApiOperationSplitter {
     private getOpenApiVersion(api: OpenAPI.Document): string {
         if ('openapi' in api) {
             return api.openapi;
-        } else if ('swagger') {
+        } else if ('swagger' in api) {
             return api.swagger;
         }
         throw new Error('Unsupported Api');
