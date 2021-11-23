@@ -54,6 +54,17 @@ describe('OpenApiOperationSplitter', () => {
         expect(pathNames[0]).toBe('/users');
     });
 
+    it('shoud get paths object by operation GET (v3)', async () => {
+        const openApiOperationSplitter: OpenApiOperationSplitter = new OpenApiOperationSplitter();
+        const api: OpenAPI.Document = await openApiOperationSplitter.parse('input/swagger.yaml');
+        const actualPaths = openApiOperationSplitter.getPathsObjectByOperation(api, "GET");
+
+        expect(actualPaths).toBeTruthy();
+        const pathNames = Object.keys(actualPaths);
+        expect(pathNames.length).toBe(8);
+        expect(pathNames[0]).toBe('/pet/findByStatus');
+    });
+
     it('shoud get paths object by operation (v3) with other operations', async () => {
         const openApiOperationSplitter: OpenApiOperationSplitter = new OpenApiOperationSplitter();
         const api: OpenAPI.Document = await SwaggerParser.parse('input/swagger_v3.yaml');
@@ -65,7 +76,7 @@ describe('OpenApiOperationSplitter', () => {
         expect(pathNames.length).toBe(8);
     });
 
-    it('should be bundle the api', async () => {
+    it('should be throw error due to failed operation', () => {
         const openApiOperationSplitter: OpenApiOperationSplitter = new OpenApiOperationSplitter();
         const api: OpenAPI.Document = {
             "openapi": "3.0.0",
@@ -87,7 +98,23 @@ describe('OpenApiOperationSplitter', () => {
                 }
             }
         };
+        expect(() => openApiOperationSplitter.getPathsObjectByOperation(api, "GE")).toThrow('Unsupported open api operation');
+    });
 
-        await openApiOperationSplitter.saveApiToYaml(api, './output/testAbc.yaml');
+    it('should be have no paths due to no paths present in api', () => {
+        const openApiOperationSplitter: OpenApiOperationSplitter = new OpenApiOperationSplitter();
+        const api: OpenAPI.Document = {
+            "openapi": "3.0.0",
+            "info": { "title": "Sample API", "description": "Optional multiline or single-line description in [CommonMark](http://commonmark.org/help/) or HTML.", "version": "0.1.9" },
+            "servers": [{ "url": "http://api.example.com/v1", "description": "Optional server description, e.g. Main (production) server" }, { "url": "http://staging-api.example.com", "description": "Optional server description, e.g. Internal staging server for testing" }],
+            "paths": {
+            }
+        };
+
+        const actualPaths = openApiOperationSplitter.getPathsObjectByOperation(api, "get");
+
+        expect(actualPaths).toBeTruthy();
+        const pathNames = Object.keys(actualPaths);
+        expect(pathNames.length).toBe(0);
     });
 });

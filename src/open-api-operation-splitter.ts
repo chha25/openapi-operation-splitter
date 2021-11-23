@@ -13,11 +13,11 @@ export class OpenApiOperationSplitter {
     getPathsObjectByOperation(api: OpenAPI.Document, method: string): OpenAPIV2.PathsObject | OpenAPIV3.PathsObject {
         let operations: OpenAPI.Operation[] = [];
         const copyPath: OpenAPIV2.PathsObject | OpenAPIV3.PathsObject = { ...api.paths };
+        const typedOperation = this.getHttpMethod(api, method);
 
         for (let pathName in api.paths) {
             console.log(pathName);
-            const typedOperation = this.getHttpMethod(api, method);
-            if (!api.paths || !typedOperation) {
+            if (!api.paths) {
                 continue;
             }
             const pathObject = api.paths[pathName];
@@ -53,14 +53,19 @@ export class OpenApiOperationSplitter {
     private getHttpMethod(api: OpenAPI.Document, operation: string): OpenAPIV2.HttpMethods | OpenAPIV3.HttpMethods {
         operation = operation.toUpperCase();
         const apiVersion = this.getOpenApiVersion(api);
+        let result;
         if (apiVersion === '2.0') {
             const typedKey = operation as keyof typeof OpenAPIV2.HttpMethods;
-            return OpenAPIV2.HttpMethods[typedKey];
+            result = OpenAPIV2.HttpMethods[typedKey];
         } else if (apiVersion === '3.0.0' || apiVersion === '3.0.1') {
             const typedKey = operation as keyof typeof OpenAPIV3.HttpMethods;
-            return OpenAPIV3.HttpMethods[typedKey];
+            result = OpenAPIV3.HttpMethods[typedKey];
         }
-        throw new Error('Unsupported open api operation');
+        if (!result) {
+            throw new Error('Unsupported open api operation');
+        }
+
+        return result;
     }
 
     private getOpenApiVersion(api: OpenAPI.Document): string {
