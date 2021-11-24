@@ -2,7 +2,19 @@
   "name": "openapi-operation-splitter",
   "version": "1.0.0",
   "description": "Split open-api file by operations",
-  "main": "app.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/chha25/openapi-operation-splitter.git"
+  },
+  "keywords": [
+    "openapi",
+    "open-api",
+    "swagger",
+    "splitter",
+    "operation"
+  ],
+  "main": "./build/app.js",
+  "types": "./build/app.d.ts",
   "scripts": {
     "build": "tsc -w",
     "start:run": "nodemon build/app.js --inputFile=input/swagger_v3.yaml --targetFileName=output/out.yaml --operations=GET POST",
