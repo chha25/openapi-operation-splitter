@@ -4,7 +4,26 @@
 
 Module and library that can use for splitting a given swagger/open-api file by an operation. 
 
-## Usage
+## Installation
+```bash
+npm i openapi-operation-splitter
+```
+
+## Cli
 ```bash
 $ node_modules/.bin/openapi-operation-splitter --inputFile=passedValue --targetFileName=passedValue --operations=passedValue1 passedValue2
+```
+
+## Library Usage
+
+```typescript
+import { OpenApiOperationSplitter } from 'openapi-operation-splitter';
+
+async function main() {
+    const splitter = new OpenApiOperationSplitter();
+    const api = await splitter.parse('inputFile.yml');
+    const paths = splitter.getPathsObjectByOperation(api, "get");
+    api.paths = paths;
+    await splitter.saveApiToYaml(api, 'targetFile.yml');
+}
 ```
