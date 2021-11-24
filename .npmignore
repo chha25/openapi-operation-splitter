@@ -5,3 +5,4 @@ jest.config.js
 .github/
 input/
 src/**/*.spec.ts
+tsconfig.json
