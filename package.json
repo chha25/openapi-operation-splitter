@@ -13,6 +13,9 @@
     "splitter",
     "operation"
   ],
+  "files": [
+    "lib"
+  ],
   "main": "./lib/app.js",
   "types": "./lib/app.d.ts",
   "scripts": {
