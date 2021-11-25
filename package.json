@@ -19,7 +19,7 @@
   "main": "./lib/app.js",
   "types": "./lib/app.d.ts",
   "scripts": {
-    "build": "tsc -w",
+    "build": "tsc",
     "start:run": "nodemon lib/app.js --inputFile=input/swagger_v3.yaml --targetFileName=output/out.yaml --operations=GET POST",
     "test": "jest --coverage",
     "view:coverage": "serve coverage/lcov-report"
