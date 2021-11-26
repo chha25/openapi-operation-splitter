@@ -1,6 +1,9 @@
 # OpenApi Operation Splitter
 [![NodeJS](https://github.com/chha25/openapi-operation-splitter/actions/workflows/main.yml/badge.svg)](https://github.com/chha25/openapi-operation-splitter/actions/workflows/main.yml)
 [![codecov](https://codecov.io/gh/chha25/openapi-operation-splitter/branch/master/graph/badge.svg?token=MS5QBY5G4X)](https://codecov.io/gh/chha25/openapi-operation-splitter)
+![GitHub](https://img.shields.io/github/license/chha25/openapi-operation-splitter)
+![npm](https://img.shields.io/npm/v/openapi-operation-splitter)
+![GitHub top language](https://img.shields.io/github/languages/top/chha25/openapi-operation-splitter)
 
 Module and library that can use for splitting a given swagger/open-api file by an operation. 
 
