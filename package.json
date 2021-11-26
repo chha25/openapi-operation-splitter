@@ -16,8 +16,8 @@
   "files": [
     "lib"
   ],
-  "main": "./lib/app.js",
-  "types": "./lib/app.d.ts",
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
   "scripts": {
     "build": "tsc",
     "start:run": "nodemon lib/app.js --inputFile=input/swagger_v3.yaml --targetFileName=output/out.yaml --operations=GET POST",

@@ -2,8 +2,6 @@
 import { parse } from 'ts-command-line-args';
 import { OpenApiOperationSplitter } from './open-api-operation-splitter';
 
-export * from './open-api-operation-splitter';
-
 async function main() {
     try {
         const args = parse<Arguments>({
