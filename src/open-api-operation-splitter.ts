@@ -10,10 +10,9 @@ export class OpenApiOperationSplitter {
         return api;
     }
 
-    getPathsObjectByOperation(api: OpenAPI.Document, method: string): OpenAPIV2.PathsObject | OpenAPIV3.PathsObject {
-        let operations: OpenAPI.Operation[] = [];
+    getPathsObjectByOperation(api: OpenAPI.Document, ...methods: string[]): OpenAPIV2.PathsObject | OpenAPIV3.PathsObject {
         const copyPath: OpenAPIV2.PathsObject | OpenAPIV3.PathsObject = { ...api.paths };
-        const typedOperation = this.getHttpMethod(api, method);
+        const typedOperations = methods.map(method => this.getHttpMethod(api, method));
 
         for (let pathName in api.paths) {
             console.log(pathName);
@@ -24,18 +23,16 @@ export class OpenApiOperationSplitter {
             if (!pathObject) {
                 continue;
             }
-            const operationByPathObject = pathObject[typedOperation];
-            if (!operationByPathObject) {
-                delete copyPath[pathName]
-                continue;
-            }
+
             for (let operation in pathObject) {
-                if (operation !== typedOperation) {
+                if (!typedOperations.includes(this.getHttpMethod(api, operation))) {
                     delete copyPath[pathName]![operation]
                 }
             }
-            console.log(operationByPathObject);
-            operations.push(operationByPathObject)
+
+            if (Object.keys(copyPath[pathName]!).length == 0) {
+                delete copyPath[pathName]
+            }
         }
         return copyPath;
     }
