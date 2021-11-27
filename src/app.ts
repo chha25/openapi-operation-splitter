@@ -13,7 +13,7 @@ async function main() {
 
         const openApiOperationSplitter: OpenApiOperationSplitter = new OpenApiOperationSplitter();
         const parsedApi = await openApiOperationSplitter.parse(args.inputFile);
-        const paths = openApiOperationSplitter.getPathsObjectByOperation(parsedApi, args.operations[0]);
+        const paths = openApiOperationSplitter.getPathsObjectByOperation(parsedApi, ...args.operations);
         parsedApi.paths = paths;
         await openApiOperationSplitter.saveApiToYaml(parsedApi, args.targetFileName);
 

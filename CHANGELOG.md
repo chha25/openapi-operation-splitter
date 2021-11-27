@@ -1,6 +1,9 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [v1.0.3] - 
+- #1: Add support for multiple operation
+
 ## [v1.0.2] - 2021.11.26
 - Fix library usage bug due to wrong package.json configuration
 
