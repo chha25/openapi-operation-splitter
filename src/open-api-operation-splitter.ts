@@ -6,7 +6,6 @@ import * as fs from 'fs';
 export class OpenApiOperationSplitter {
     async parse(fileName: string): Promise<OpenAPI.Document> {
         let api: OpenAPI.Document = await SwaggerParser.parse(fileName);
-        console.log("API name: %s, Version: %s", api.info.title, api.info.version);
         return api;
     }
 
@@ -15,15 +14,7 @@ export class OpenApiOperationSplitter {
         const typedOperations = methods.map(method => this.getHttpMethod(api, method));
 
         for (let pathName in api.paths) {
-            console.log(pathName);
-            if (!api.paths) {
-                continue;
-            }
             const pathObject = api.paths[pathName];
-            if (!pathObject) {
-                continue;
-            }
-
             for (let operation in pathObject) {
                 if (!typedOperations.includes(this.getHttpMethod(api, operation))) {
                     delete copyPath[pathName]![operation]
