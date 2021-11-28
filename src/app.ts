@@ -1,8 +1,9 @@
 #!/usr/bin/env node
 import { parse } from 'ts-command-line-args';
+import { Arguments } from './arguments';
 import { OpenApiOperationSplitter } from './open-api-operation-splitter';
 
-async function main() {
+export async function main() {
     try {
         const args = parse<Arguments>({
             inputFile: String,
