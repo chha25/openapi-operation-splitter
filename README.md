@@ -16,6 +16,15 @@ npm i openapi-operation-splitter
 ```bash
 $ node_modules/.bin/openapi-operation-splitter --inputFile=passedValue --targetFileName=passedValue --operations=passedValue1 passedValue2
 ```
+### Options
+
+| Argument           | Alias | Type     | Description                             |
+| ------------------ | ----- | -------- | --------------------------------------- |
+| **inputFile**      |       | string   | Input file                              |
+| **targetFileName** |       | string   | output file name                        |
+| **operations**     |       | string[] | http operations that would be extracted |
+| **help**           | **h** | boolean  | Prints this usage guide                 |
+  
 
 ## Library Usage
 
