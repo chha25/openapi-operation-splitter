@@ -1,6 +1,9 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [v1.0.4] - 2022-03-31
+- Update dependencies
+
 ## [v1.0.3] - 2021-11-28
 - #1: Add support for multiple operation
 - Update README.md
