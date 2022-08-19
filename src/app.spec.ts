@@ -11,7 +11,7 @@ describe('app', () => {
         const a = <Arguments>{
             inputFile: 'input/swagger.yaml',
             operations: ['get'],
-            targetFileName: 'output/app_test.yaml',
+            targetFile: 'output/app_test.yaml',
         };
         mockedParse.mockReturnValue(a as any);
 
@@ -21,7 +21,7 @@ describe('app', () => {
     it('should throw error due to missing input file', async () => {
         const a = <Arguments>{
             operations: ['get'],
-            targetFileName: 'asdfl',
+            targetFile: 'asdfl',
         };
         mockedParse.mockReturnValue(a as any);
 
