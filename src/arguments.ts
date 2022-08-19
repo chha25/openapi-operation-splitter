@@ -2,15 +2,17 @@ import { ArgumentConfig, ParseOptions, UsageGuideConfig } from "ts-command-line-
 
 export interface Arguments {
     inputFile: string,
-    targetFileName: string,
+    targetFile: string,
     operations: string[],
+    ignore?: string,
     help?: boolean
-};
+}
 
 const argumentConfig: ArgumentConfig<Arguments> = {
     inputFile: String,
-    targetFileName: String,
+    targetFile: String,
     operations: { type: String, multiple: true },
+    ignore: { type: String, optional: true },
     help: { type: Boolean, optional: true, alias: 'h', description: 'Prints this usage guide' },
 };
 
