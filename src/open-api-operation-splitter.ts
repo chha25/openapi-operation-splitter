@@ -10,7 +10,7 @@ export class OpenApiOperationSplitter {
         return api;
     }
 
-    getPathsObjectByOperation(api: OpenAPI.Document, ignore: string, ...methods: string[]): OpenAPIV2.PathsObject | OpenAPIV3.PathsObject {
+    getFilteredPathsObject(api: OpenAPI.Document, ignore: string, ...methods: string[]): OpenAPIV2.PathsObject | OpenAPIV3.PathsObject {
         const copyPath: OpenAPIV2.PathsObject | OpenAPIV3.PathsObject = { ...api.paths };
         const typedOperations = methods.map(method => this.getHttpMethod(api, method));
 

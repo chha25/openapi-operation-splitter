@@ -46,7 +46,7 @@ describe('OpenApiOperationSplitter', () => {
             }
         };
 
-        const actualPaths = openApiOperationSplitter.getPathsObjectByOperation(api, "", "GET", "POST");
+        const actualPaths = openApiOperationSplitter.getFilteredPathsObject(api, "", "GET", "POST");
 
         expect(actualPaths).toBeTruthy();
         const pathNames = Object.keys(actualPaths);
@@ -62,7 +62,7 @@ describe('OpenApiOperationSplitter', () => {
             "servers": [{ "url": "http://api.example.com/v1", "description": "Optional server description, e.g. Main (production) server" }, { "url": "http://staging-api.example.com", "description": "Optional server description, e.g. Internal staging server for testing" }],
         };
 
-        const actualPaths = openApiOperationSplitter.getPathsObjectByOperation(api as OpenAPI.Document, "", "GET", "POST");
+        const actualPaths = openApiOperationSplitter.getFilteredPathsObject(api as OpenAPI.Document, "", "GET", "POST");
 
         expect(actualPaths).toBeTruthy();
         const pathNames = Object.keys(actualPaths);
@@ -92,7 +92,7 @@ describe('OpenApiOperationSplitter', () => {
             }
         };
 
-        const actualPaths = openApiOperationSplitter.getPathsObjectByOperation(api, "", "GET");
+        const actualPaths = openApiOperationSplitter.getFilteredPathsObject(api, "", "GET");
 
         expect(actualPaths).toBeTruthy();
         const pathNames = Object.keys(actualPaths);
@@ -103,7 +103,7 @@ describe('OpenApiOperationSplitter', () => {
     it('shoud get paths object by operation GET (v2)', async () => {
         const openApiOperationSplitter: OpenApiOperationSplitter = new OpenApiOperationSplitter();
         const api: OpenAPI.Document = await openApiOperationSplitter.parse('input/swagger.yaml');
-        const actualPaths = openApiOperationSplitter.getPathsObjectByOperation(api, "","GET");
+        const actualPaths = openApiOperationSplitter.getFilteredPathsObject(api, "","GET");
 
         expect(actualPaths).toBeTruthy();
         const pathNames = Object.keys(actualPaths);
@@ -114,7 +114,7 @@ describe('OpenApiOperationSplitter', () => {
     it('shoud get paths object by multiple operations GET/POST (v2)', async () => {
         const openApiOperationSplitter: OpenApiOperationSplitter = new OpenApiOperationSplitter();
         const api: OpenAPI.Document = await openApiOperationSplitter.parse('input/swagger.yaml');
-        const actualPaths = openApiOperationSplitter.getPathsObjectByOperation(api, "", "GET", "POST");
+        const actualPaths = openApiOperationSplitter.getFilteredPathsObject(api, "", "GET", "POST");
 
         expect(actualPaths).toBeTruthy();
         const pathNames = Object.keys(actualPaths);
@@ -127,7 +127,7 @@ describe('OpenApiOperationSplitter', () => {
         const openApiOperationSplitter: OpenApiOperationSplitter = new OpenApiOperationSplitter();
         const api: OpenAPI.Document = await SwaggerParser.parse('input/swagger_v3.yaml');
 
-        const actualPaths = openApiOperationSplitter.getPathsObjectByOperation(api, "","GET");
+        const actualPaths = openApiOperationSplitter.getFilteredPathsObject(api, "","GET");
 
         expect(actualPaths).toBeTruthy();
         const pathNames = Object.keys(actualPaths);
@@ -156,7 +156,7 @@ describe('OpenApiOperationSplitter', () => {
                 }
             }
         };
-        expect(() => openApiOperationSplitter.getPathsObjectByOperation(api, "","get")).toThrow('Unsupported Api');
+        expect(() => openApiOperationSplitter.getFilteredPathsObject(api, "","get")).toThrow('Unsupported Api');
     });
 
     it('should be throw error due to failed operation', () => {
@@ -181,7 +181,7 @@ describe('OpenApiOperationSplitter', () => {
                 }
             }
         };
-        expect(() => openApiOperationSplitter.getPathsObjectByOperation(api, "","GE")).toThrow('Unsupported open api operation');
+        expect(() => openApiOperationSplitter.getFilteredPathsObject(api, "","GE")).toThrow('Unsupported open api operation');
     });
 
     it('should be have no paths due to no paths present in api', () => {
@@ -194,7 +194,7 @@ describe('OpenApiOperationSplitter', () => {
             }
         };
 
-        const actualPaths = openApiOperationSplitter.getPathsObjectByOperation(api, "","get");
+        const actualPaths = openApiOperationSplitter.getFilteredPathsObject(api, "","get");
 
         expect(actualPaths).toBeTruthy();
         const pathNames = Object.keys(actualPaths);
@@ -211,5 +211,28 @@ describe('OpenApiOperationSplitter', () => {
             }
         };
         await openApiOperationSplitter.saveApiToYaml(api, 'output/test.yml');
+    });
+
+    it('should save api to json file', async () => {
+        const openApiOperationSplitter: OpenApiOperationSplitter = new OpenApiOperationSplitter();
+        const api: OpenAPI.Document = {
+            "openapi": "3.0.0",
+            "info": { "title": "Sample API", "description": "Optional multiline or single-line description in [CommonMark](http://commonmark.org/help/) or HTML.", "version": "0.1.9" },
+            "servers": [{ "url": "http://api.example.com/v1", "description": "Optional server description, e.g. Main (production) server" }, { "url": "http://staging-api.example.com", "description": "Optional server description, e.g. Internal staging server for testing" }],
+            "paths": {
+            }
+        };
+        await openApiOperationSplitter.saveApiToJson(api, 'output/test.json');
+    });
+
+    it('shoud filter paths', async () => {
+        const openApiOperationSplitter: OpenApiOperationSplitter = new OpenApiOperationSplitter();
+        const api: OpenAPI.Document = await SwaggerParser.parse('input/swagger_v3.yaml');
+
+        const actualPaths = openApiOperationSplitter.getFilteredPathsObject(api, "/user/login","GET");
+
+        expect(actualPaths).toBeTruthy();
+        const pathNames = Object.keys(actualPaths);
+        expect(pathNames.length).toBe(7);
     });
 });
