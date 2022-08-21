@@ -7,20 +7,35 @@ export async function main() {
     try {
         const args = parse<Arguments>({
             inputFile: String,
-            targetFileName: String,
+            targetFile: String,
             operations: { type: String, multiple: true },
+            ignore: { type: String, optional: true },
             help: { type: Boolean, optional: true, alias: 'h', description: 'Prints this usage guide' },
         });
 
         const openApiOperationSplitter: OpenApiOperationSplitter = new OpenApiOperationSplitter();
         const parsedApi = await openApiOperationSplitter.parse(args.inputFile);
-        const paths = openApiOperationSplitter.getPathsObjectByOperation(parsedApi, ...args.operations);
+        const ignore = args.ignore === undefined ? "" : args.ignore;
+        const paths = openApiOperationSplitter.getFilteredPathsObject(parsedApi, ignore, ...args.operations);
+        const targetFile = args.targetFile;
         parsedApi.paths = paths;
-        await openApiOperationSplitter.saveApiToYaml(parsedApi, args.targetFileName);
+        if (getFileExtension(targetFile) === 'yaml' || getFileExtension(targetFile) === 'yml') {
+            await openApiOperationSplitter.saveApiToYaml(parsedApi, targetFile);
+        } else {
+            await openApiOperationSplitter.saveApiToJson(parsedApi, targetFile);
+        }
 
     } catch (error: any) {
         console.log(error);
     }
+}
+
+function getFileExtension(targetFileName: string) {
+    const splitExtension = targetFileName.split('.');
+    if (splitExtension.length > 1) {
+        return splitExtension[1].toLowerCase();
+    }
+    return '';
 }
 
 main();

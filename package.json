@@ -1,6 +1,6 @@
 {
   "name": "openapi-operation-splitter",
-  "version": "1.0.4",
+  "version": "1.1.1",
   "description": "Split open-api file by operations",
   "repository": {
     "type": "git",
@@ -20,7 +20,7 @@
   "types": "./lib/index.d.ts",
   "scripts": {
     "build": "tsc",
-    "start:run": "nodemon lib/app.js --inputFile=input/swagger_v3.yaml --targetFileName=output/out.yaml --operations=GET POST",
+    "start:run": "nodemon lib/app.js --inputFile=input/swagger_v3.yaml --targetFile=output/out.yaml --operations=GET POST",
     "test": "jest --coverage",
     "view:coverage": "serve coverage/lcov-report"
   },
