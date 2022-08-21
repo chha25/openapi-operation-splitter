@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [v1.1.1] - 2022-08-21
+- Update dependencies
+- Add support for ignoring path element
+- Change cli argument targetFileName to targetFile
+
 ## [v1.0.4] - 2022-03-31
 - Update dependencies
 
