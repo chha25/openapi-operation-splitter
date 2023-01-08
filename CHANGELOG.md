@@ -1,6 +1,9 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [v1.1.2] - 2023-01-08
+- Bump json5 from 2.2.1 to 2.2.3
+
 ## [v1.1.1] - 2022-08-21
 - Update dependencies
 - Add support for ignoring path element
