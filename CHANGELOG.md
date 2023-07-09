@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [v1.1.4] - 2023-07-09
+- Update dependencies
+- Bump tough-cookie from 4.0.0 to 4.1.3
+
 ## [v1.1.3] - 2023-01-08
 - Bump yaml from 1.10.2 to 2.2.2
 
