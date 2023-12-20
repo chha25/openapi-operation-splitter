@@ -1,6 +1,9 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [v1.1.5] - 2023-12-20
+- Bump @babel/traverse from 7.22.8 to 7.23.2
+
 ## [v1.1.4] - 2023-07-09
 - Update dependencies
 - Bump tough-cookie from 4.0.0 to 4.1.3
