@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [v1.1.6] - 2024-11-12
+- Bump ws from 7.5.9 to 7.5.10
+- Bump braces from 3.0.2 to 3.0.3
+
 ## [v1.1.5] - 2023-12-20
 - Bump @babel/traverse from 7.22.8 to 7.23.2
 
